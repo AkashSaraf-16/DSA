@@ -10,12 +10,6 @@ public:
             int dest = edge[0];
             adj[source].push_back(dest);
         }
-        for(int i=0 ; i<numCourses ;i++){
-            cout<<i<<"->";
-            for(int a: adj[i])
-                cout<<a<<"->";
-            cout<<endl;
-        }
         // Step 2:Storing the indigree 
         vector<int> indegree(numCourses,0);
         for(int i=0 ; i<numCourses ;i++){
@@ -23,8 +17,6 @@ public:
                 indegree[v]++;
             }
         }
-        for(int a:indegree)
-            cout<<a<<" ";
         // Step 3: Do a BFS traversal of the graph and inc the count whenever we process a vertex if at last we are unable to process all the vertex than there is some loop.
         int count = 0;
         queue<int> q;
