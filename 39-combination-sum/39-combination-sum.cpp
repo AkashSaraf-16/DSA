@@ -46,7 +46,7 @@ public:
     
     vector<vector<int>> combinationSum(vector<int>& candidates, int target) {   
         sort(candidates.begin() , candidates.end()) ; 
-        candidates.erase(unique(candidates.begin() , candidates.end()) ,candidates.end()) ; 
+        // candidates.erase(unique(candidates.begin() , candidates.end()) ,candidates.end()) ; 
         vector<int> t ; 
         vector<vector<int>> ans ; 
         comb(t , ans , candidates , target , 0 ) ; 
