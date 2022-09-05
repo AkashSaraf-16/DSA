@@ -1,13 +1,13 @@
 class Solution {
 public:
     void helper(vector<int> nums, vector<vector<int>> &ans, vector<int> ds, int index){
-        if(index == nums.size()){
-            ans.push_back(ds);
-            return;
+        ans.push_back(ds);
+        for(int i = index ; i < nums.size() ; i++){
+            if(i > index && nums[i] == nums[i-1]) continue;
+            ds.push_back(nums[i]);
+            helper(nums,ans,ds,i+1);
+            ds.pop_back();
         }
-        helper(nums,ans,ds,index+1);
-        ds.push_back(nums[index]);
-        helper(nums,ans,ds,index+1);
             
     }
     vector<vector<int>> subsets(vector<int>& nums) {
