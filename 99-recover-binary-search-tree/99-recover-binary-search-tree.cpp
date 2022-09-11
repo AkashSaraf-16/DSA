@@ -10,29 +10,33 @@
  * };
  */
 class Solution {
-public:
-    // T.C: O(nlogN) S.C: O(n)
-    int ind = 0;
-    void buildBST(vector<int> v , TreeNode* root){
+private:
+    // T.C:O(n) S.C:O(1)
+    TreeNode *first , *middle , *last , *prev;
+    void inorder(TreeNode* root){
         if(!root)
             return;
-        buildBST(v,root->left);
-        if(v[ind] != root->val)
-            root->val = v[ind];
-        ind++;
-        buildBST(v,root->right);
+        inorder(root->left);
+        
+        if(prev && prev->val > root->val){
+            // if there is element which is smaller than previous element
+            if(!first){
+                first = prev;
+                middle = root;
+            }
+            else
+                last = root;
+        }
+        prev = root;
+        inorder(root->right);
     }
-    void traversal(TreeNode* root , vector<int> &v){
-        if(!root)
-            return ;
-        traversal(root->left,v);
-        v.push_back(root->val);
-        traversal(root->right,v);
-    }
+    
+public:
     void recoverTree(TreeNode* root) {
-        vector<int> inorder;
-        traversal(root,inorder);
-        sort(inorder.begin() , inorder.end());
-        buildBST(inorder,root);
+        first = middle = last = NULL;
+        prev  = new TreeNode(INT_MIN);
+        inorder(root);
+        if(first && !last)  swap(first->val,middle->val);   // incase adjacent nodes are swapped
+        if(last)    swap(first->val,last->val); // incase non-adjacent nodes are swapped
     }
 };
