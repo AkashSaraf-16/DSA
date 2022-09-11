@@ -12,25 +12,33 @@
 class Solution {
 public:
     vector<double> averageOfLevels(TreeNode* root) {
-        vector<double> sum;
-        vector<int> count;
-        DFS(root,0,sum,count);
-        for(int i = 0 ; i < sum.size() ; i++){
-            sum[i] = sum[i]/count[i];
-        }
-        return sum;
-    }
-    void DFS(TreeNode* root, int level , vector<double> &sum , vector<int>& count){
+        vector<double> ans;
         if(!root)
-            return;
-        if(level<sum.size()){
-            sum[level] += 1.0*root->val;
-            count[level]++;
-        }else{
-            sum.push_back(1.0*root->val);
-            count.push_back(1);
+            return ans;
+        queue <TreeNode*> q;
+        q.push(root);
+        q.push(NULL);
+        double sum = 0;
+        double avg ;
+        int n = 0;
+        while(!q.empty()){
+            TreeNode* frnt = q.front();
+            q.pop();
+            if(frnt == NULL){       // end of level
+                avg = sum/n;
+                ans.push_back(avg);
+                sum = 0;
+                n = 0;
+                if(!q.empty())
+                    q.push(NULL);
+            }
+            else{
+                sum+= frnt->val;
+                n++;
+                if(frnt->left)  q.push(frnt->left);
+                if(frnt->right) q.push(frnt->right);
+            }
         }
-        DFS(root->left,level+1,sum,count);
-        DFS(root->right,level+1,sum,count);
+        return ans;
     }
 };
