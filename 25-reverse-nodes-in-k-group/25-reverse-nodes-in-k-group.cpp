@@ -28,9 +28,6 @@ public:
                 temp = temp->next;
                 tempK--;
             }
-            // thead->next = rev.top();
-            // rev.pop();
-            // thead = thead->next;
             while(!rev.empty()){
                 thead->next = rev.top();
                 rev.pop();
