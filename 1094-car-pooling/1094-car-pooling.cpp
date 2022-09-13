@@ -1,8 +1,8 @@
 class Solution {
 public:
     bool carPooling(vector<vector<int>>& trips, int capacity) {
-        map<int,int> mp;
-        int currCap = 0;
+        vector<int> mp(1001,0);
+        int currCap = capacity;
         for(auto trip:trips){   // mapping each pick n drop point with the no. of passenger adding/subtracting
             int src = trip[1];
             int dest = trip[2];
@@ -11,11 +11,10 @@ public:
             mp[dest] -= ppl;
         }
         // if it any moment we have currCap > capacity it means trip isnt possible
-        for(auto it=mp.begin() ; it!=mp.end() ; it++){
-            currCap += it->second;
-            if(currCap>capacity)
-                return false;
+        for(int i=0;i<1001 && currCap>=0 ;i++){
+            currCap -= mp[i];
+            
         }
-        return true;
+        return currCap>=0;
     }
 };
