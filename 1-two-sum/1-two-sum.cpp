@@ -1,7 +1,7 @@
 class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
-        map<int,int> mp;        // element and index
+        unordered_map<int,int> mp;        // element and index
         int temp;
         for(int i = 0 ; i< nums.size() ; i++){
             temp = target - nums[i];        // finding compliment
