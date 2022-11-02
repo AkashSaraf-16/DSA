@@ -3,7 +3,7 @@ public:
     // TC : Time complexity: O((N - 1)! + E \log E)O((N−1)!+ElogE)
     // Adjacency list, defined it as per the maximum number of nodes given in constraint
     // We are using an array of vector of pairs because we will store the travel time on first and destination at second on ith index where i decnotes the source
-    vector<pair<int, int>> adj[101];        // for every node n : adj[n] = {{m1,w1},{m2,w2}....} where m-> vertex and w->weight
+    vector<pair<int, int>> adj[101];        // for every node n : adj[n] = {{w1,m1},{w2,m2}....} where w->weight and m-> vertex
     
     void DFS(vector<int>& signalReceivedAt, int currNode, int currTime) {
         // If the current time is greater than or equal to the fastest signal received
