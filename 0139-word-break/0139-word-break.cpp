@@ -40,7 +40,7 @@ public:
             implemntTrie(word);
         vector<bool> dp(s.length()+1,false);        // here the ith index represent whether a word of that length is there in the wordDict
         dp[0]=true;
-        for(int len=1;len<=s.length();len++){       // for every len 1-len of s
+        for(int len=1;len<=s.length();len++){       // for every len from 1-len of s
             for(int i=0;i<len;i++){                 // strating from i=0-len-1 its substrings 
                 if(dp[i] && searchWord(s.substr(i,len-i)))      // we will check whether the word is berakble at index i-1 or not is yes then breakk it from i-len-i
                     dp[len]=true;
