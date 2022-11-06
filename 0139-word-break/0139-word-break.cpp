@@ -42,7 +42,7 @@ public:
         dp[0]=true;
         for(int len=1;len<=s.length();len++){       // for every len from 1-len of s
             for(int i=0;i<len;i++){                 // strating from i=0-len-1 its substrings 
-                if(dp[i] && searchWord(s.substr(i,len-i)))      // we will check whether the word is berakble at index i-1 or not is yes then breakk it from i-len-i
+                if(dp[i] && searchWord(s.substr(i,len-i)))      // we will check whether the word is berakble at index i-1 or not if yes then break it from i-len-1
                     dp[len]=true;
             }
         }
