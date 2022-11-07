@@ -41,7 +41,7 @@ public:
         int n = nums.size();
         vector<vector<int>> dp(n+1,vector<int>(n+1,0)); // contains len of longest subseq between curr index and prev_ind
         for(int ind = n-1 ; ind>=0 ; ind--){
-            for(int prev_ind = ind-1 ; prev_ind>=-1 ; prev_ind--){  // here prev_ind is -1 but we cant have -1 sa index hence we will replace prev_ind->prev_ind+1
+            for(int prev_ind = ind-1 ; prev_ind>=-1 ; prev_ind--){  // here prev_ind is -1 but we cant have -1 as index hence we will replace prev_ind->prev_ind+1
                 int len = dp[ind+1][prev_ind+1];
                 if(prev_ind == -1 || nums[ind]>nums[prev_ind]){
                     len = max (len , 1+dp[ind+1][ind+1]);
