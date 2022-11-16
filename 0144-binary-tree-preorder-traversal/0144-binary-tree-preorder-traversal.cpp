@@ -12,7 +12,7 @@
 class Solution {
 public:
     vector<int> preorderTraversal(TreeNode* root) {
-        if(!root)
+        /*if(!root)
             return {};
         stack<TreeNode*> st;
         vector<int> res;
@@ -24,6 +24,32 @@ public:
             st.pop();
             if(curr->right)     st.push(curr->right);
             if(curr->left)     st.push(curr->left);
+        }
+        return res;
+        */
+        // MORRIS TRAVERSAL:
+        vector<int> res;
+        TreeNode* curr=root;
+        while(curr){
+            if(!curr->left){
+                res.push_back(curr->val);
+                curr=curr->right;
+            }
+            else{
+                TreeNode* prev=curr->left;
+                while(prev->right && prev->right!=curr){
+                    prev=prev->right;
+                }
+                if(prev->right==NULL){
+                    res.push_back(curr->val);
+                    prev->right=curr;
+                    curr=curr->left;
+                }
+                else{
+                    prev->right=NULL;
+                    curr=curr->right;
+                }
+            }
         }
         return res;
     }
