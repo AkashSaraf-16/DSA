@@ -12,7 +12,7 @@
 class Solution {
 public:
     vector<int> inorderTraversal(TreeNode* root) {
-        stack<TreeNode*> st;
+        /*stack<TreeNode*> st;
         vector<int> res;
         TreeNode* curr=root;
         while(curr || !st.empty()){
@@ -24,6 +24,36 @@ public:
             st.pop();
             res.push_back(curr->val);
             curr=curr->right;
+        }
+        return res;
+        */
+        // MORRIS TRAVERSAL:
+        vector<int> res;
+        TreeNode* curr=root;
+        while(curr){
+            if(!curr->left){
+                // if nothing to process on left subtree
+                res.push_back(curr->val);
+                curr=curr->right;
+            }
+            else{
+                TreeNode* prev=curr->left;
+                // We will try to make/check connection of rightmost node of this subtree with curr
+                while(prev->right && prev->right!=curr){
+                    prev=prev->right;
+                }
+                if(prev->right==NULL){
+                    // If we havent made any connection so far
+                    prev->right=curr;
+                    curr=curr->left;
+                }
+                else{
+                    // If connection is already there
+                    prev->right=NULL;
+                    res.push_back(curr->val);
+                    curr=curr->right;
+                }
+            }
         }
         return res;
     }
