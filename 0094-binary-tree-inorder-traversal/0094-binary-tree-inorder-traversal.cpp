@@ -12,51 +12,18 @@
 class Solution {
 public:
     vector<int> inorderTraversal(TreeNode* root) {
+        stack<TreeNode*> st;
         vector<int> res;
-     /*   stack<TreeNode*> s;
-        if(!root)
-            return res;
-        TreeNode* curr = root;
-        while(curr || !s.empty()){
+        TreeNode* curr=root;
+        while(curr || !st.empty()){
             while(curr){
-                s.push(curr);
-                curr = curr->left;
+                st.push(curr);
+                curr=curr->left;
             }
-            curr = s.top();
-            s.pop();
+            curr=st.top();
+            st.pop();
             res.push_back(curr->val);
-            curr = curr->right;
-        }
-        return res;*/
-    // MORRIS TRAVERSAL
-    // TC:O(N) SC:O(1)
-        TreeNode* curr;
-        curr = root;
-        while(curr){
-            if(curr->left == NULL){ // if no left child store the node and move to right tree
-                res.push_back(curr->val);
-                curr = curr->right;
-            }
-            else{
-                // going on to rightmost node of left tree(last node of inorder traversal)
-                TreeNode* prev = curr->left;
-                while(prev->right && prev->right != curr){
-                    prev = prev->right; 
-                }
-                // making the connection if it is not made already
-                if(prev->right == NULL){
-                    prev->right = curr;
-                    curr = curr->left;
-                }
-                // if we have already made the connection then we will break the modified connection
-                else{
-                    prev->right = NULL;
-                    // store the curr in res
-                    res.push_back(curr->val);
-                    curr = curr->right;
-                }
-                
-            }
+            curr=curr->right;
         }
         return res;
     }
