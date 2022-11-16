@@ -15,6 +15,7 @@ public:
         if(!root)
             return {};
         stack<TreeNode*> st1,st2;
+        // We are using two stack to keep track of root nodes of subtrees and for left and right subtree processing and one for stroing all the nodes in postorder sequence
         vector<int> res;
         TreeNode* curr=root;
         st1.push(curr);
