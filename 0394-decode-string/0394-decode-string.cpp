@@ -1,40 +1,33 @@
 class Solution {
 public:
-    // TC : O(maxK*n) K = numeric value , n = length of string SC : O(n+m)
+    // TC : O(maxK.N) SC:O(N)
     string decodeString(string s) {
-        stack<string> chars_stck;
-        stack<int> freq;
-        string currentString;       // string build so far in []
-        int k = 0;                  // current number formed before [
-        for(char ch : s){
-            if(isdigit(ch)){
-                k = k*10+(ch-'0');
-            }
-            else if(ch == '['){
-                // pushing the number created so far in stack only when we encounter [ 
-                freq.push(k);
-                //pushing the char formed so far 
-                chars_stck.push(currentString);
-                // reset the value of k and currentString so that we can use it in next numeric case
-                k = 0;
-                currentString = "";
-                
-            }
-            else if(ch == ']'){
-                // getting the top string just before the this [] Eg : 3[a2[bc]] here top will be  a as we will need as it is with the other string be repeated
-                string decoded = chars_stck.top();
-                chars_stck.pop();
-                for(int times = 1 ; times<=freq.top() ; times++){
-                    decoded = decoded+currentString;
-                }
-                // processed number hence removing
-                freq.pop();
-                currentString = decoded;
+        int index= 0;
+        return decodeHelper(s,index);
+    }
+    string decodeHelper(string &s , int &index){
+        string result;
+        // BASE CONDITION
+        while(index<s.length() && s[index]!=']'){
+            if(!isdigit(s[index])){
+                result+=s[index++];
             }
             else{
-                currentString += ch;
+                int k = 0 ;
+                // building the number
+                while(index<s.length() && isdigit(s[index]))
+                    k = k*10+(s[index++]-'0');
+                //once we encounter [ we will start oue next recursion call
+                index++;
+                string decoded = decodeHelper(s,index);
+                // once we get here we will be on ] so ignoring it
+                index++;
+                for(int i = 1 ; i<= k ; i++){
+                    result = result+decoded;
+                }
+                
             }
         }
-        return currentString;
+        return result;
     }
 };
