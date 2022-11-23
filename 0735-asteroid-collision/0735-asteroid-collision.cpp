@@ -8,7 +8,7 @@ public:
                 st.push(ast[i]);
             }
             else {
-                while(!st.empty() and st.top() > 0 and st.top() < abs(ast[i])) { // if negative asteriod can destroy the other one
+                while(!st.empty() and st.top() > 0 and st.top() < abs(ast[i])) { // if negative asteriod can destroy the other positive one
                     st.pop();
                 }
                 if(!st.empty() and st.top() == abs(ast[i])) { // if negative asteriod and other one are of same weight
