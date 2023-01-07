@@ -1,27 +1,25 @@
 class Solution {
 public:
-    void helper(vector<int> candidates,vector<vector<int>> &res,vector<int> &ds,int target, int sum, int idx){
-        // Base condition
-        if(idx==candidates.size()){
-            if(sum==target)
-                res.push_back(ds);
+    void helper(vector<int> &candidates,vector<vector<int>> &r,vector<int> &ds, int target, int idx){
+        if(target==0){
+            r.push_back(ds);
             return;
         }
-        // pick
-        if(candidates[idx]+sum<=target){
+        // checking for each index in candidates whether we can take it or not 
+        while(idx<candidates.size() && target-candidates[idx]>=0){
             ds.push_back(candidates[idx]);
-            helper(candidates,res,ds,target,sum+candidates[idx],idx);
+            helper(candidates,r,ds,target-candidates[idx],idx);
+            idx++;
+         // backtracking
             ds.pop_back();
         }
-        // not pick
-        helper(candidates,res,ds,target,sum,idx+1);
         
     }
     vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
         sort(candidates.begin(),candidates.end());
-        vector<vector<int>> res;
+        vector<vector<int>> r;
         vector<int> ds;
-        helper(candidates,res,ds,target,0,0);
-        return res;
+        helper(candidates,r,ds,target,0);
+        return r;
     }
 };
