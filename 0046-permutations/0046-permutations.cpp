@@ -14,7 +14,6 @@ public:
     }
     vector<vector<int>> permute(vector<int>& nums) {
         vector<vector<int>> res;
-        sort(nums.begin(), nums.end());
         helper(nums,res,0);
         return res;
     }
