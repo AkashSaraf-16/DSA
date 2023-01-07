@@ -5,16 +5,19 @@ public:
             res.push_back(nums);
             return;
         }
+        unordered_set<int> s;
         for(int i=idx;i<nums.size();i++){
-            if(i==idx || nums[i]!=nums[idx]){
-                swap(nums[i],nums[idx]);
-                helper(nums,res,idx+1);
-            }
+            if(s.find(nums[i])!=s.end())
+                continue;
+            s.insert(nums[i]);
+            swap(nums[i],nums[idx]);
+            helper(nums,res,idx+1);
+            swap(nums[i],nums[idx]);          
         }
     }
     vector<vector<int>> permuteUnique(vector<int>& nums) {
         vector<vector<int>> res;
-        sort(nums.begin(), nums.end());
+        vector<int> ds;
         helper(nums,res,0);
         return res;
     }
