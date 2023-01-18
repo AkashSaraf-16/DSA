@@ -1,21 +1,27 @@
 class Solution {
 public:
-    bool isPair(char a,char b){
-        if((a == '(' && b ==')') ||(a == '{' && b =='}') || (a == '[' && b ==']'))
-            return true;
-        return false;
-    }
     bool isValid(string s) {
-        int top=-1;
-        for(int i=0;i<s.length();i++){
-            if(top<0 || !isPair(s[top],s[i])){
-                // think this in a way like when the 2 consecutive brackets are not pair we simply push the current char in stack
-                top++;
-                s[top]=s[i];
+        stack<char> st;
+        for(char c:s){
+            if(c=='(' || c=='{' || c=='['){
+                st.push(c);
             }
-            else
-                top--;
+            else if(c==')'){
+                if(!st.empty() && st.top()=='(')
+                    st.pop();
+                else return false;
+            }
+            else if(c=='}'){
+                if(!st.empty() && st.top()=='{')
+                    st.pop();
+                else return false;
+            }
+            else if(c==']'){
+                if(!st.empty() && st.top()=='[')
+                    st.pop();
+                else return false;
+            }
         }
-        return top==-1;
+        return st.empty();
     }
 };
