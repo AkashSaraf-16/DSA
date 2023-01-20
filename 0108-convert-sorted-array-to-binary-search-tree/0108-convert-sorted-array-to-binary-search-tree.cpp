@@ -11,7 +11,7 @@
  */
 class Solution {
 public:
-    TreeNode* helper(vector<int> nums,int s,int e){
+    TreeNode* helper(vector<int> &nums,int s,int e){
         if(s>=e)
             return NULL;
         int mid=(s+e)/2;
