@@ -13,10 +13,16 @@ class Solution {
 public:
     // TC:O(N) SC:O(logN)
     TreeNode* invertTree(TreeNode* root) {
-        if(root){
-            invertTree(root->left);
-            invertTree(root->right);
-            swap(root->left,root->right);
+        if(!root)
+            return root;
+        stack<TreeNode*> stk;
+        stk.push(root);
+        while(!stk.empty()){
+            TreeNode* t=stk.top();
+            stk.pop();
+            if(t->left) stk.push(t->left);
+            if(t->right) stk.push(t->right);
+            swap(t->left,t->right);
         }
         return root;
     }
