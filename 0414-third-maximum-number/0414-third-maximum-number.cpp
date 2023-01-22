@@ -1,15 +1,17 @@
 class Solution {
 public:
-    // One of a pattern 
     int thirdMax(vector<int>& nums) {
-    long a, b, c;
-    a = b = c = LONG_MIN;
-    for (auto num : nums) {
-        if (num <= c || num == b || num == a) continue;
-        c = num;
-        if (c > b) swap(b, c);
-        if (b > a) swap(a, b);
+        sort(nums.begin(),nums.end(),greater<int>());
+        int cnt=1,prevEle=nums[0];
+        for(int i=1;i<nums.size();i++){
+            if(nums[i]!=prevEle){
+                cnt++;
+                prevEle=nums[i];
+            }
+            if(cnt==3){
+                return nums[i];
+            }
+        }
+        return nums[0];
     }
-    return c == LONG_MIN ? a : c;
-}
 };
