@@ -7,11 +7,8 @@ public:
         }
         
         int mask = 1;
-        while(1) {
-            if((mask & xoR) == 0) {         // tryig to find the rightmost set bit
+        while((mask & xoR) == 0) {         // tryig to find the rightmost set bit
                 mask = mask << 1;           // if not found shifting the bits 1 by left
-            }
-            else break;
         }
         
         
