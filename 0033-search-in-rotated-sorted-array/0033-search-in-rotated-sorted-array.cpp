@@ -11,6 +11,7 @@ public:
                 return next;
             if(nums[mid]<nums[prev])
                 return mid;
+            // since we want to find min hence move h to m-1
             if(nums[mid]<nums[h])
                 h=mid-1;
             else
