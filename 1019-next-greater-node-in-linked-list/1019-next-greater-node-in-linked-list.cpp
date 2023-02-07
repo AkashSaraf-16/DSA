@@ -30,7 +30,6 @@ public:
         // reverse(ans.begin(),ans.end());
         // return ans;
         
-        ListNode* temp = head;
         vector<int> res;
         stack<int> s;
         for(auto n = head ; n != nullptr ; n = n->next) res.push_back(n->val);
