@@ -9,10 +9,9 @@ public:
             if(arr[i] == 0){
                 int t = arr[i+1];
                 int j = i+2;
+                // Overriding arr after i+1 with shifted value i.,e right shifting values
                 while(j<n){
-                    int temp = arr[j];
-                    arr[j] = t;
-                    t = temp;
+                    swap(arr[j],t);
                     j++;
                 }
                 arr[i+1] = 0 ;
