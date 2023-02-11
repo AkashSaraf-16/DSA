@@ -18,8 +18,8 @@ public:
         if(!root->left && !root->right && root->val == targetSum){
             paths.push_back(path);
         }
-        findPath(root->left , targetSum-root->val,paths,path);
-        findPath(root->right , targetSum-root->val,paths,path);
+        findPath(root->left,targetSum-root->val,paths,path);
+        findPath(root->right,targetSum-root->val,paths,path);
         path.pop_back();            // backtracking
     }
     vector<vector<int>> pathSum(TreeNode* root, int targetSum) {
