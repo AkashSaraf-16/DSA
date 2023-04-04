@@ -37,7 +37,6 @@ public:
         }
         return ans;
     }
-    
     private:
         bool isPal(string& word, int i, int j) {
             while (i < j)
