@@ -38,10 +38,10 @@ public:
         return ans;
     }
     
-private:
-    bool isPal(string& word, int i, int j) {
-        while (i < j)
-            if (word[i++] != word[j--]) return false;
-        return true;
-    }
+    private:
+        bool isPal(string& word, int i, int j) {
+            while (i < j)
+                if (word[i++] != word[j--]) return false;
+            return true;
+        }
 };
