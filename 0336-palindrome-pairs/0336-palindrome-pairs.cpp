@@ -1,46 +1,65 @@
-class Solution {
+struct TrieNode
+{
+    TrieNode *child[26]={};
+    int curIndex=-1;
+    vector<int> wordIndex;
+};
+class Solution
+{
+    bool isPalindrome(string &s, int i, int j)
+    {
+        while (i < j)
+        {
+            if (s[i++] != s[j--])
+                return false;
+        }
+        return true;
+    }
+    TrieNode *root;
+    void insert(string &s, int index)
+    {
+        TrieNode *cur = root;
+        for (int i = s.size() - 1; i >= 0; i--)
+        {
+            int c = s[i] - 'a';
+            if (cur->child[c] == nullptr)
+                cur->child[c] = new TrieNode();
+            if (isPalindrome(s, 0, i))
+                cur->wordIndex.push_back(index);
+            cur = cur->child[c];
+        }
+        cur->wordIndex.push_back(index);
+        cur->curIndex = index;
+    }
+
 public:
-    vector<vector<int>> palindromePairs(vector<string>& words) {
-        unordered_map<string, int> wmap;
+    vector<vector<int>> palindromePairs(vector<string> &words)
+    {
+        root = new TrieNode();
+        for (int i = 0; i < words.size(); i++)
+            insert(words[i], i);
         vector<vector<int>> ans;
         for (int i = 0; i < words.size(); i++)
-            wmap[words[i]] = i;
-        for (int i = 0; i < words.size(); i++) {
-            if (words[i] == "") {
-                for (int j = 0; j < words.size(); j++) {
-                    string& w = words[j];
-                    if (isPal(w, 0, w.size()-1) && j != i) {
-                        ans.push_back(vector<int> {i, j});
-                        ans.push_back(vector<int> {j, i});
-                    }
-                }
+        {
+            TrieNode *cur = root;
+            string &s = words[i];
+            for (int j = 0; j < s.size(); j++)
+            {
+                if (cur->curIndex != -1 && cur->curIndex != i && isPalindrome(s, j, s.size() - 1))
+                    ans.push_back({i, cur->curIndex});
+                cur = cur->child[s[j] - 'a'];
+                if (cur == nullptr)
+                    break;
+            }
+            if (cur == nullptr)
                 continue;
-            }
-            string bw = words[i];
-            reverse(bw.begin(), bw.end());
-            if (wmap.find(bw) != wmap.end()) {
-                int res = wmap[bw];
-                if (res != i) ans.push_back(vector<int> {i, res});
-            }
-            for (int j = 1; j < bw.size(); j++) {
-                if (isPal(bw, 0, j-1)) {
-                    string s = bw.substr(j, bw.size()-j);
-                    if (wmap.find(s) != wmap.end())
-                        ans.push_back(vector<int> {i, wmap[s]});
-                }
-                if (isPal(bw, j, bw.size()-1)) {
-                    string s = bw.substr(0, j);
-                    if (wmap.find(s) != wmap.end())
-                        ans.push_back(vector<int> {wmap[s], i});
-                }
+            for (int j : cur->wordIndex)
+            {
+                if (i == j)
+                    continue;
+                ans.push_back({i, j});
             }
         }
         return ans;
     }
-    private:
-        bool isPal(string& word, int i, int j) {
-            while (i < j)
-                if (word[i++] != word[j--]) return false;
-            return true;
-        }
 };
