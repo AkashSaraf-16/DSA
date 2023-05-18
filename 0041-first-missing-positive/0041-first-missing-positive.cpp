@@ -1,21 +1,20 @@
 class Solution {
 public:
-    // Using hashmap
-    // TC:O(nlogn) SC:O(n)
     int firstMissingPositive(vector<int>& nums) {
         int n=nums.size();
-        map<int,bool> map;
-        for(int i=1;i<=n;i++)
-            map.insert({i,false});
-        
-        for(auto i:nums){
-            if(i>0 && map.count(i))
-                map[i]=true;
+        for(int i=0;i<n;i++){
+            int element=nums[i];
+            if(element>=1 && element<=n){
+                int correctPos=element-1;
+                if(nums[correctPos]!=element){
+                    swap(nums[correctPos],nums[i]);
+                    i--; // we have to again check whther now at pos i we have correct number or not
+                }   
+            }
         }
-        
-        for(auto a:map){
-            if(a.second==false)
-                return a.first;
+        for(int i=0;i<n;i++){
+            if(i+1!=nums[i])
+                return i+1;
         }
         return n+1;
     }
