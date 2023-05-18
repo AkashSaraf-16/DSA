@@ -1,5 +1,7 @@
 class Solution {
 public:
+    // Using hashmap
+    // TC:O(nlogn) SC:O(n)
     int firstMissingPositive(vector<int>& nums) {
         int n=nums.size();
         map<int,bool> map;
