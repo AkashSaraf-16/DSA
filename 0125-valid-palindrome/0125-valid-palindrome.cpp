@@ -1,20 +1,14 @@
 class Solution {
 public:
     bool isPalindrome(string s) {
-        string m;
-        for(auto c:s){
-            if(isalpha(c)||isdigit(c)){
-                if(isalpha(c))
-                    c=tolower(c);
-                m+=c;
-            }
-            if(c==' ')
-                continue;
+        string t="";
+        for(char c:s){
+            if(c!=' ' && (isalpha(c) || isdigit(c)))
+                t+=tolower(c);
         }
-        cout<<m;
-        string t=m;
-        reverse(m.begin(),m.end());
-        return t==m;
-        
+        cout<<t;
+        string temp=t;
+        reverse(t.begin(),t.end());
+        return t==temp;
     }
 };
