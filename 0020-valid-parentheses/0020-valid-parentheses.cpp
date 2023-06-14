@@ -1,21 +1,29 @@
 class Solution {
 public:
     bool isValid(string s) {
-        int i=-1;// top
-        for(int j=0;j<s.length();j++){
-            if(i==-1 || !pairParenthesis(s[i],s[j])){
-                i++;
-                s[i]=s[j];
-            }   
-            else{
-                i--;   
+        stack<char> st;
+        for(auto c:s){
+            if(c=='(' || c=='{' || c=='['){
+                st.push(c);
             }
+            else if(!st.empty()){
+                if(isComplementery(st.top(),c))
+                    st.pop();
+                else
+                    return false;
+            }
+            else
+                return false;
         }
-        return i==-1;
+        return st.empty();
     }
-    bool pairParenthesis(char a,char b){
-        if((a=='(' && b==')') || (a=='[' && b==']') || (a=='{' && b=='}'))
+    bool isComplementery(char a,char b){
+        if(a=='(' && b==')')
             return true;
-        return false;
+        else if(a=='{' && b=='}')
+            return true;
+        else if(a=='[' && b==']')
+            return true;
+        return false; 
     }
 };
