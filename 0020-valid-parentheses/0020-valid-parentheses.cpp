@@ -1,28 +1,19 @@
 class Solution {
 public:
     bool isValid(string s) {
-        stack<char> st;
-        for(auto c:s){
-            if(c=='(' || c=='{' || c=='['){
-                st.push(c);
-            }
-            else if(!st.empty()){
-                if(isComplementery(st.top(),c))
-                    st.pop();
-                else
-                    return false;
+        int top=-1;
+        for(int curr=0;curr<s.length();curr++){
+            if(top<0 || !isComplementery(s[top],s[curr])){
+                top++;
+                s[top]=s[curr];
             }
             else
-                return false;
+                top--;
         }
-        return st.empty();
+        return top==-1;
     }
     bool isComplementery(char a,char b){
-        if(a=='(' && b==')')
-            return true;
-        else if(a=='{' && b=='}')
-            return true;
-        else if(a=='[' && b==']')
+        if(a=='(' && b==')' || a=='{' && b=='}' || a=='[' && b==']')
             return true;
         return false; 
     }
